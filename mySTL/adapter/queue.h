@@ -1,10 +1,10 @@
 #ifndef MYSTL_QUEUE_H_
 #define MYSTL_QUEUE_H_
 
-#include "./container/sequence/deque.h"
-#include "./container/sequence/vector.h"
-#include "./functional/functional.h"
-#include "./algorithm/heap_algo.h"
+#include "../container/sequence/deque.h"
+#include "../container/sequence/vector.h"
+#include "../functional/functional.h"
+#include "../algorithm/heap_algo.h"
 
 namespace mySTL
 {

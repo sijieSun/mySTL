@@ -14,12 +14,13 @@
 //   * insert
 
 #include <initializer_list>
+#include <type_traits>
 
-#include "./iterator/iterator.h"
-#include "./util/memory.h"
-#include "./util/util.h"
-#include "./util/exceptdef.h"
-#include "./algorithm/algo.h"
+#include "../../iterator/iterator.h"
+#include "../../util/memory.h"
+#include "../../util/util.h"
+#include "../../util/exceptdef.h"
+#include "../../algorithm/algo.h"
 
 namespace mySTL
 {
@@ -692,7 +693,7 @@ namespace mySTL
         }
         else
         {
-            erase(mySTL::fill_n(begin_, n, value), end_);
+            erase(mySTL::fill(begin_, n, value), end_);
         }
     }
 

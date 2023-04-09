@@ -3,8 +3,8 @@
 
 #include <cstring>
 
-#include "./iterator/iterator.h"
-#include "./util/util.h"
+#include "../iterator/iterator.h"
+#include "../util/util.h"
 
 namespace mySTL
 {
@@ -185,7 +185,7 @@ namespace mySTL
     mySTL::pair<InputIter, OutputIter>
     unchecked_copy_n(InputIter first, Size n, OutputIter result, mySTL::input_iterator_tag)
     {
-        for (; n > 0; --n; ++first, ++result)
+        for (; n > 0; --n, ++first, ++result)
         {
             *result = *first;
         }
@@ -377,6 +377,12 @@ namespace mySTL
         return first + n;   
     }
 
+    template <class OutputIter, class Size, class T>
+    OutputIter fill_n(OutputIter first, Size n, const T& value)
+    {
+        return unchecked_fill_n(first, n, value);
+    }
+
     //  fill
     template <class ForwardIter, class T>
     void fill_cat(ForwardIter first, ForwardIter last, const T& value, mySTL::forward_iterator_tag)
@@ -402,7 +408,7 @@ namespace mySTL
 
     //  以字典序对两个序列排序
     template <class InputIter1, class InputIter2>
-    bool lexicographical_cmpare(InputIter1 first1, InputIter1 last1,
+    bool lexicographical_compare(InputIter1 first1, InputIter1 last1,
                                 InputIter2 first2, InputIter2 last2)
     {
         for (; first1 != last1 && first2 != last2; ++first1, ++first2)
@@ -462,7 +468,7 @@ namespace mySTL
             ++first1;
             ++first2;
         }
-        return mystl::pair<InputIter1, InputIter2>(first1, first2);
+        return mySTL::pair<InputIter1, InputIter2>(first1, first2);
     }
 
     //  overload cmp
@@ -475,7 +481,7 @@ namespace mySTL
             ++first1;
             ++first2;
         }
-        return mystl::pair<InputIter1, InputIter2>(first1, first2);
+        return mySTL::pair<InputIter1, InputIter2>(first1, first2);
     }
 }
 

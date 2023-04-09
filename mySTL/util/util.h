@@ -4,7 +4,7 @@
 //move, forward, swap 等常用函数，以及pair等
 
 #include <cstddef>
-#include "./iterator/type_traits.h"
+#include "../iterator/type_traits.h"
 
 namespace mySTL
 {
@@ -14,7 +14,7 @@ namespace mySTL
     typename std::remove_reference<T>::type&&
     move(T&& arg) noexcept
     {
-        return static_cast <typename std::remove_reference <T>::type&&(arg);
+        return static_cast <typename std::remove_reference <T>::type&&>(arg);
     }
 
     //forward
@@ -257,9 +257,9 @@ namespace mySTL
     }
 
     template <class Ty1, class Ty2>
-    bool operator<=(const pair<Ty1, Ty2>& lhs, const pair<Ty1, Ty2>& rhs)
+    bool operator>=(const pair<Ty1, Ty2>& lhs, const pair<Ty1, Ty2>& rhs)
     {
-        return !(lsh < rhs);
+        return !(lhs > rhs);
     }
 
     //  overload mySTL::swap

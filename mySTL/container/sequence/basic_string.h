@@ -5,12 +5,12 @@
 // 用于表示字符串类型
 
 #include <iostream>
-
-#include "./iterator/iterator.h"
-#include "./functional/functional.h"
-#include "./util/util.h"
-#include "./util/exceptdef.h"
-#include "./allocator/allocator.h"
+#include "../../algorithm/algorithm.h"
+#include "../../iterator/iterator.h"
+#include "../../functional/functional.h"
+#include "../../util/util.h"
+#include "../../util/exceptdef.h"
+#include "../../allocator/allocator.h"
 
 namespace mySTL
 {
@@ -18,6 +18,7 @@ namespace mySTL
     template <class CharType>
     struct char_traits
     {
+        typedef CharType char_type;
         static size_t length(const char_type *str)
         {
             size_t len = 0;
@@ -694,6 +695,14 @@ namespace mySTL
 
         // count
         size_type count(value_type ch, size_type pos = 0) const noexcept;
+
+        // 重载 operator+= 
+        basic_string& operator+=(const basic_string& str)
+        { return append(str); }
+        basic_string& operator+=(value_type ch)
+        { return append(1, ch); }
+        basic_string& operator+=(const_pointer str)
+        { return append(str, str + char_traits::length(str)); }
 
         // 重载 operator >> / operatror <<
 
@@ -1752,14 +1761,14 @@ namespace mySTL
     basic_string<CharType, CharTraits>::
         append_range(Iter first, Iter last)
     {
-        const size_type n = mystl::distance(first, last);
+        const size_type n = mySTL::distance(first, last);
         THROW_LENGTH_ERROR_IF(size_ > max_size() - n,
                               "basic_string<Char, Tratis>'s size too big");
         if (cap_ - size_ < n)
         {
             reallocate(n);
         }
-        mystl::uninitialized_copy_n(first, n, buffer_ + size_);
+        mySTL::uninitialized_copy_n(first, n, buffer_ + size_);
         size_ += n;
         return *this;
     }
@@ -1768,7 +1777,7 @@ namespace mySTL
     int basic_string<CharType, CharTraits>::
         compare_cstr(const_pointer s1, size_type n1, const_pointer s2, size_type n2) const
     {
-        auto rlen = mystl::min(n1, n2);
+        auto rlen = mySTL::min(n1, n2);
         auto res = char_traits::compare(s1, s2, rlen);
         if (res != 0)
             return res;
@@ -1885,7 +1894,7 @@ namespace mySTL
     void basic_string<CharType, CharTraits>::
         reallocate(size_type need)
     {
-        const auto new_cap = mystl::max(cap_ + need, cap_ + (cap_ >> 1));
+        const auto new_cap = mySTL::max(cap_ + need, cap_ + (cap_ >> 1));
         auto new_buffer = data_allocator::allocate(new_cap);
         char_traits::move(new_buffer, buffer_, size_);
         data_allocator::deallocate(buffer_);
@@ -1901,7 +1910,7 @@ namespace mySTL
     {
         const auto r = pos - buffer_;
         const auto old_cap = cap_;
-        const auto new_cap = mystl::max(old_cap + n, old_cap + (old_cap >> 1));
+        const auto new_cap = mySTL::max(old_cap + n, old_cap + (old_cap >> 1));
         auto new_buffer = data_allocator::allocate(new_cap);
         auto e1 = char_traits::move(new_buffer, buffer_, r) + r;
         auto e2 = char_traits::fill(e1, ch, n) + n;
@@ -1921,11 +1930,11 @@ namespace mySTL
     {
         const auto r = pos - buffer_;
         const auto old_cap = cap_;
-        const size_type n = mystl::distance(first, last);
-        const auto new_cap = mystl::max(old_cap + n, old_cap + (old_cap >> 1));
+        const size_type n = mySTL::distance(first, last);
+        const auto new_cap = mySTL::max(old_cap + n, old_cap + (old_cap >> 1));
         auto new_buffer = data_allocator::allocate(new_cap);
         auto e1 = char_traits::move(new_buffer, buffer_, r) + r;
-        auto e2 = mystl::uninitialized_copy_n(first, n, e1) + n;
+        auto e2 = mySTL::uninitialized_copy_n(first, n, e1) + n;
         char_traits::move(e2, buffer_ + r, size_ - r);
         data_allocator::deallocate(buffer_, old_cap);
         buffer_ = new_buffer;
@@ -1989,7 +1998,7 @@ namespace mySTL
     operator+(basic_string<CharType, CharTraits> &&lhs,
               const basic_string<CharType, CharTraits> &rhs)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(lhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(lhs));
         tmp.append(rhs);
         return tmp;
     }
@@ -1999,7 +2008,7 @@ namespace mySTL
     operator+(const basic_string<CharType, CharTraits> &lhs,
               basic_string<CharType, CharTraits> &&rhs)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(rhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(rhs));
         tmp.insert(tmp.begin(), lhs.begin(), lhs.end());
         return tmp;
     }
@@ -2009,7 +2018,7 @@ namespace mySTL
     operator+(basic_string<CharType, CharTraits> &&lhs,
               basic_string<CharType, CharTraits> &&rhs)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(lhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(lhs));
         tmp.append(rhs);
         return tmp;
     }
@@ -2018,7 +2027,7 @@ namespace mySTL
     basic_string<CharType, CharTraits>
     operator+(const CharType *lhs, basic_string<CharType, CharTraits> &&rhs)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(rhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(rhs));
         tmp.insert(tmp.begin(), lhs, lhs + char_traits<CharType>::length(lhs));
         return tmp;
     }
@@ -2027,7 +2036,7 @@ namespace mySTL
     basic_string<CharType, CharTraits>
     operator+(CharType ch, basic_string<CharType, CharTraits> &&rhs)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(rhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(rhs));
         tmp.insert(tmp.begin(), ch);
         return tmp;
     }
@@ -2036,7 +2045,7 @@ namespace mySTL
     basic_string<CharType, CharTraits>
     operator+(basic_string<CharType, CharTraits> &&lhs, const CharType *rhs)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(lhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(lhs));
         tmp.append(rhs);
         return tmp;
     }
@@ -2045,7 +2054,7 @@ namespace mySTL
     basic_string<CharType, CharTraits>
     operator+(basic_string<CharType, CharTraits> &&lhs, CharType ch)
     {
-        basic_string<CharType, CharTraits> tmp(mystl::move(lhs));
+        basic_string<CharType, CharTraits> tmp(mySTL::move(lhs));
         tmp.append(1, ch);
         return tmp;
     }
@@ -2093,7 +2102,7 @@ namespace mySTL
         return lhs.compare(rhs) >= 0;
     }
 
-    // 重载 mystl 的 swap
+    // 重载 mySTL 的 swap
     template <class CharType, class CharTraits>
     void swap(basic_string<CharType, CharTraits> &lhs,
               basic_string<CharType, CharTraits> &rhs) noexcept
@@ -2101,7 +2110,7 @@ namespace mySTL
         lhs.swap(rhs);
     }
 
-    // 特化 mystl::hash
+    // 特化 mySTL::hash
     template <class CharType, class CharTraits>
     struct hash<basic_string<CharType, CharTraits>>
     {

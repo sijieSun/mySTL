@@ -6,12 +6,12 @@
 
 #include <initializer_list>
 
-#include "./algorithm/algo.h"
-#include "./functional/functional.h"
-#include "./container/sequence/vector.h"
-#include "./util/util.h"
-#include "./util/memory.h"
-#include "./util/exceptdef.h"
+#include "../../algorithm/algo.h"
+#include "../../functional/functional.h"
+#include "../../container/sequence/vector.h"
+#include "../../util/util.h"
+#include "../../util/memory.h"
+#include "../../util/exceptdef.h"
 
 
 

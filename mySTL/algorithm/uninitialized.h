@@ -4,7 +4,7 @@
 //  对未初始化空间构造元素
 
 #include "algobase.h"
-#include "./allocator/construct.h"
+#include "../allocator/construct.h"
 // #include "iterator.h"
 // #include "type_traits.h"
 // #include "util.h"
@@ -50,7 +50,7 @@ namespace mySTL
         return unchecked_uninit_copy(first, last, result, 
                                     std::is_trivially_copy_assignable<
                                     typename iterator_traits<ForwardIter>::
-                                    value_type>{};)
+                                    value_type>{});
     }
 
     /* uninitialized_copy_n */
@@ -131,7 +131,7 @@ namespace mySTL
     ForwardIter 
     unchecked_uninit_fill_n(ForwardIter first, Size n, const T& value, m_intergral_constant<bool, true>)
     {
-        return mySTL::fill_n(first, n, value);
+        return mySTL::fill(first, n, value);
     }
 
     template <class ForwardIter, class Size, class T>

@@ -19,7 +19,7 @@ namespace mySTL
 {
 
     // 模板类 set，键值不允许重复
-    // 参数一代表键值类型，参数二代表键值比较方式，缺省使用 mystl::less
+    // 参数一代表键值类型，参数二代表键值比较方式，缺省使用 mySTL::less
     template <class Key, class Compare = mySTL::less<Key>>
     class set
     {
@@ -271,7 +271,7 @@ namespace mySTL
         return !(lhs < rhs);
     }
 
-    // 重载 mystl 的 swap
+    // 重载 mySTL 的 swap
     template <class Key, class Compare>
     void swap(set<Key, Compare> &lhs, set<Key, Compare> &rhs) noexcept
     {
@@ -279,7 +279,7 @@ namespace mySTL
     }
 
     // 模板类 multiset，键值允许重复
-    // 参数一代表键值类型，参数二代表键值比较方式，缺省使用 mystl::less
+    // 参数一代表键值类型，参数二代表键值比较方式，缺省使用 mySTL::less
     template <class Key, class Compare = mySTL::less<Key>>
     class multiset
     {
@@ -290,8 +290,8 @@ namespace mySTL
         typedef Compare value_compare;
 
     private:
-        // 以 mystl::rb_tree 作为底层机制
-        typedef mystl::rb_tree<value_type, key_compare> base_type;
+        // 以 mySTL::rb_tree 作为底层机制
+        typedef mySTL::rb_tree<value_type, key_compare> base_type;
         base_type tree_; // 以 rb_tree 表现 multiset
 
     public:
@@ -330,7 +330,7 @@ namespace mySTL
         {
         }
         multiset(multiset &&rhs) noexcept
-            : tree_(mystl::move(rhs.tree_))
+            : tree_(mySTL::move(rhs.tree_))
         {
         }
 
@@ -341,7 +341,7 @@ namespace mySTL
         }
         multiset &operator=(multiset &&rhs)
         {
-            tree_ = mystl::move(rhs.tree_);
+            tree_ = mySTL::move(rhs.tree_);
             return *this;
         }
         multiset &operator=(std::initializer_list<value_type> ilist)
@@ -420,13 +420,13 @@ namespace mySTL
         template <class... Args>
         iterator emplace(Args &&...args)
         {
-            return tree_.emplace_multi(mystl::forward<Args>(args)...);
+            return tree_.emplace_multi(mySTL::forward<Args>(args)...);
         }
 
         template <class... Args>
         iterator emplace_hint(iterator hint, Args &&...args)
         {
-            return tree_.emplace_multi_use_hint(hint, mystl::forward<Args>(args)...);
+            return tree_.emplace_multi_use_hint(hint, mySTL::forward<Args>(args)...);
         }
 
         iterator insert(const value_type &value)
@@ -435,7 +435,7 @@ namespace mySTL
         }
         iterator insert(value_type &&value)
         {
-            return tree_.insert_multi(mystl::move(value));
+            return tree_.insert_multi(mySTL::move(value));
         }
 
         iterator insert(iterator hint, const value_type &value)
@@ -444,7 +444,7 @@ namespace mySTL
         }
         iterator insert(iterator hint, value_type &&value)
         {
-            return tree_.insert_multi(hint, mystl::move(value));
+            return tree_.insert_multi(hint, mySTL::move(value));
         }
 
         template <class InputIterator>
@@ -531,7 +531,7 @@ namespace mySTL
         return !(lhs < rhs);
     }
 
-    // 重载 mystl 的 swap
+    // 重载 mySTL 的 swap
     template <class Key, class Compare>
     void swap(multiset<Key, Compare> &lhs, multiset<Key, Compare> &rhs) noexcept
     {

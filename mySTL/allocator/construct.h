@@ -5,8 +5,9 @@
 
 #include <new>
 
-#include "type_traits.h"
-#include "iterator.h"
+#include "../iterator/type_traits.h"
+#include "../iterator/iterator.h"
+#include "../util/util.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -26,7 +27,7 @@ namespace mySTL
     template <class Ty1, class Ty2>
     void construct(Ty1* ptr, const Ty2& value)
     {
-        ::new ((void*)ptr Ty1(value));
+        ::new ((void*)ptr) Ty1(value);
     }
 
     template <class Ty, class... Args>

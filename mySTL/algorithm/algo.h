@@ -1,6 +1,7 @@
 #ifndef MYSTL_ALGO_H_
-#define MYSTL_ALGO_H
+#define MYSTL_ALGO_H_
 
+#include <cstdlib>
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4244)
@@ -10,8 +11,8 @@
 #include <ctime>
 
 #include "algobase.h"
-#include "functional.h"
-#include "memory.h"
+#include "../functional/functional.h"
+#include "../util/memory.h"
 #include "heap_algo.h"
 
 
@@ -1052,7 +1053,7 @@ namespace mySTL
         auto parent = 0;
         for (auto child = 1; child < n; ++child)
         {
-            if (first[parent] < first[chile])
+            if (first[parent] < first[child])
             {
                 return false;
             }
@@ -1072,7 +1073,7 @@ namespace mySTL
         auto parent = 0;
         for (auto child = 1; child < n; ++child)
         {
-            if (cmp(first[parent], first[chile]))
+            if (cmp(first[parent], first[child]))
             {
                 return false;
             }
@@ -1664,9 +1665,9 @@ namespace mySTL
             auto len1 = mySTL::distance(first1, last1);
             auto len2 = mySTL::distance(first2, last2);
             if (len1 == 0 && len2 == 0)
-            return true;
+                return true;
             if (len1 != len2)
-            return false;
+                return false;
         }
 
         // 判断剩余部分
@@ -1908,7 +1909,7 @@ namespace mySTL
         if (len1 + len2 == 2)
         {
             if (*middle < *first)
-            mySTL::iter_swap(first, middle);
+                mySTL::iter_swap(first, middle);
             return;
         }
         auto first_cut = first;

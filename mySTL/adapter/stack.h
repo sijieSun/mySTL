@@ -1,7 +1,7 @@
 #ifndef MYSTL_STACK_H
 #define MYSTL_STACK_H
 
-#include "./container/sequence/deque.h"
+#include "../container/sequence/deque.h"
 
 namespace mySTL
 {

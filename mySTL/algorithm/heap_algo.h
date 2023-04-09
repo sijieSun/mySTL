@@ -3,7 +3,7 @@
 
 //  push_heap, pop_heap, sort_heap, make_heap
 
-#include "iterator.h"
+#include "../iterator/iterator.h"
 
 namespace mySTL
 {
@@ -72,7 +72,7 @@ namespace mySTL
         auto rchild = 2 * holeIndex + 2;
         while (rchild < len)
         {
-            if (*(first + rchild) < *(first + rchile - 1))
+            if (*(first + rchild) < *(first + rchild - 1))
             {
                 --rchild;
             }

@@ -14,10 +14,10 @@
 
 #include <initializer_list>
 
-#include "./iterator/iterator.h"
-#include "./util/memory.h"
-#include "./util/util.h"
-#include "./util/exceptdef.h"
+#include "../../iterator/iterator.h"
+#include "../../util/memory.h"
+#include "../../util/util.h"
+#include "../../util/exceptdef.h"
 
 namespace mySTL
 {

@@ -1,7 +1,7 @@
 #ifndef MYSTL_NUMERIC_H_
 #define MYSTL_NUMERIC_H_
 
-#include "iterator.h"
+#include "../iterator/iterator.h"
 
 //  accumulate, adjacent_difference, inner_product, itoa, partial_sum
 
@@ -81,7 +81,7 @@ namespace mySTL
      */
 
     template <class InputIter1, class InputIter2, class T>
-    T inner_product(InputIter1 first1, InputIter1 last1, InputIter2 first2, InputIter2 last2, T init)
+    T inner_product(InputIter1 first1, InputIter1 last1, InputIter2 first2, T init)
     {
         for (; first1 != last1; ++first1, ++first2)
         {

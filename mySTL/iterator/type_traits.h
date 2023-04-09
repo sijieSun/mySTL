@@ -1,5 +1,5 @@
 #ifndef MYSTL_TYPE_TRAITS_h
-#define MYSTL_TYPE_TRAITS_H
+#define MYSTL_TYPE_TRAITS_h
 
 #include <type_traits>
 

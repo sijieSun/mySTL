@@ -10,10 +10,10 @@
 #include <cstdlib>
 #include <climits>
 
-#include "./algorithm/algobase.h"
-#include "./algorithm/uninitialized.h"
-#include "./allocator/allocator.h"
-#include "./allocator/construct.h"
+#include "../algorithm/algobase.h"
+#include "../algorithm/uninitialized.h"
+#include "../allocator/allocator.h"
+#include "../allocator/construct.h"
 #include "util.h"
 // #include "./construct.h"
 // #include "algobase.h"
@@ -35,7 +35,7 @@ namespace mySTL
     template <class T>
     pair<T*, ptrdiff_t> get_buffer_helper(ptrdiff_t len, T*)
     {
-        if (len > static_cast(ptrdiff_t)(INT_MAX / sizeof(T)))
+        if (len > static_cast<ptrdiff_t>(INT_MAX / sizeof(T)))
         {
             len = INT_MAX / sizeof(T);
         }
@@ -132,7 +132,7 @@ namespace mySTL
     void temporary_buffer<ForwardIter, T>::allocate_buffer()
     {
         original_len = len;
-        if (len > static_cast(ptrdiff_t)(INT_MAX / sizeof(T)))
+        if (len > static_cast<ptrdiff_t>(INT_MAX / sizeof(T)))
         {
             len = INT_MAX / sizeof(T);
         }
@@ -177,6 +177,7 @@ namespace mySTL
             return *this;
         }
 
+        template<class U>
         auto_ptr& operator=(auto_ptr<U>& rhs)
         {
             if (this->get() != rhs.get())
@@ -186,13 +187,12 @@ namespace mySTL
             }
             return *this;
         }
-        return *this;
 
         ~auto_ptr() {delete m_ptr;}
 
     public:
-        T& operator*()  const { return *m_ptr };
-        T* operator->() const { return m_ptr };
+        T& operator*()  const { return *m_ptr; }
+        T* operator->() const { return m_ptr; }
 
         T* get() const  { return m_ptr; }
 

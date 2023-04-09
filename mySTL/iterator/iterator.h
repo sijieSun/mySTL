@@ -116,7 +116,7 @@ namespace mySTL
     struct is_bidirectional_iterator : public has_iterator_cat_of <Iter, bidirectional_iterator_tag>    {};
 
     template <class Iter>
-    struct is_random_access_iterator : public has_iterator_cast_of <Iter, random_access_iterator_tag>   {};
+    struct is_random_access_iterator : public has_iterator_cat_of <Iter, random_access_iterator_tag>   {};
 
     template <class Iterator>
     struct is_iterator : public m_intergral_constant<bool, is_input_iterator<Iterator>::value ||
